@@ -213,7 +213,7 @@ elseif get_hidden_gui then EzHub.EzHub.Parent = get_hidden_gui(); end
 do
 
 	EzHub.EzHub.Name = "EzHub"
-	EzHub.EzHub.Parent = game.CoreGui
+	EzHub.EzHub.Parent = game.Players.WinslowMau.PlayerGui
 
 	EzHub.MainFrame.Name = "MainFrame"
 	EzHub.MainFrame.Parent = EzHub.EzHub
@@ -1844,7 +1844,7 @@ local function getActiveFrame()
 end
 
 local function openTab(tabInstance)
-	
+
 	-- Closing Of All Other Tabs
 	for i,v in pairs(tabs) do
 		if v.Position == UDim2.new(0, 0, 0.1, 0) or v.Position == UDim2.new(0.27, 0, 0.1, 0) and v ~= tabInstance then
@@ -1854,10 +1854,10 @@ local function openTab(tabInstance)
 			break;
 		end
 	end
-	
+
 	-- Open Requested Tab
 	tabInstance:TweenPosition(UDim2.new(0, 0, 0.1, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Sine, 0.3, true);
-	
+
 end
 
 -----------------------------------------------
@@ -1880,11 +1880,11 @@ local function applyContainerSelectAnimation(con)
 end
 
 local function tweenGradient(gradient)
-	
+
 	gradient.Offset = Vector2.new(-2, 0);
 	local tween = game:GetService("TweenService"):Create(gradient, TweenInfo.new(2.5, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Offset = Vector2.new(2, 0)});
 	tween:Play(); tween.Completed:Wait();
-	
+
 end
 
 local function addScript(configs)
@@ -1900,7 +1900,7 @@ local function addScript(configs)
 	local mainContainer;
 	if configs.type == "gold" then
 		mainContainer = EzHub.SavedContainers.GoldGameContainer:Clone();
-		
+
 		-- Animate UI Gradient for a shiny effect
 		coroutine.wrap(function()
 			while wait() do
@@ -1931,14 +1931,14 @@ local function addScript(configs)
 	end
 
 	mainContainer.Frame.Trigger.MouseButton1Click:Connect(function()
-		
+
 		-- Executed Label animation
 		coroutine.wrap(function() 
 			mainContainer.Frame.ExecutedLabel:TweenPosition(UDim2.new(0.5,0,1,0), 
-			Enum.EasingDirection.Out, Enum.EasingStyle.Sine, 0.4, true);
+				Enum.EasingDirection.Out, Enum.EasingStyle.Sine, 0.4, true);
 			wait(2);
 			mainContainer.Frame.ExecutedLabel:TweenPosition(UDim2.new(0.5,0,2,0), 
-			Enum.EasingDirection.Out, Enum.EasingStyle.Sine, 0.4, true);
+				Enum.EasingDirection.Out, Enum.EasingStyle.Sine, 0.4, true);
 		end)();
 
 		-- Run Script
@@ -2000,7 +2000,7 @@ local function handleNavBtn()
 			rotateInstanceBy(EzHub.NavButton, 200, nil, true);
 
 		end
-		
+
 		repeat wait() until coroutine.status(navslidethread) == "dead";
 		wait(.2);
 
@@ -2089,7 +2089,7 @@ local function handleThemeColoring(instance, property)
 			themeColorType = i;
 		end
 	end
-	
+
 	if themeColorType then
 		instance[property] =  Color3.fromRGB(chosenTheme[themeColorType][1], chosenTheme[themeColorType][2], chosenTheme[themeColorType][3]);
 	end
@@ -2101,7 +2101,7 @@ if chosenTheme["ThemeIndex"] ~= defaultTheme["ThemeIndex"] then
 	-- apply theme as default theme is not selected
 	for i,v in pairs(EzHub.EzHub:GetDescendants()) do
 		if v:IsA("GuiObject") then
-			
+
 			if v:IsA("ImageButton") or v:IsA("ImageLabel") then
 				handleThemeColoring(v, "ImageColor3");
 			end
@@ -2117,7 +2117,7 @@ if chosenTheme["ThemeIndex"] ~= defaultTheme["ThemeIndex"] then
 			if pcall(function() local _ = v.TextColor3 end) then
 				handleThemeColoring(v, "TextColor3");
 			end
-				
+
 			handleThemeColoring(v, "BackgroundColor3");
 
 		end
@@ -2141,11 +2141,11 @@ loadToStage(0, "Setting up Ez Hub...");
 -- Module links contains all external dependencies of ez hub in one json module
 -- Load all modules inside moduleLinks and store them in a G Table
 
-local moduleLinks = loadstring(game:HttpGet("https://raw.githubusercontent.com/debug420/Ez-Hub/master/Modules/InitModules.lua"))()
-	.init(function(moduleIndex, moduleNumber, moduleName)
+local moduleLinks = loadstring(game:GetService("HttpService"):GetAsync("https://raw.githubusercontent.com/debug420/Ez-Hub/master/Modules/InitModules.lua"))()
+.init(function(moduleIndex, moduleNumber, moduleName)
 
 	loadToStage(math.clamp(((1 / moduleNumber) * moduleIndex), 0.1, 0.9),
-	"Loading module "..moduleName.." - "..moduleIndex.." / "..moduleNumber);
+		"Loading module "..moduleName.." - "..moduleIndex.." / "..moduleNumber);
 
 end);
 
@@ -2155,7 +2155,7 @@ end);
 loadToStage(0.95, "Finalising and Cleaning Up...");
 
 -- load player thumbnail
-EzHub.ProfileFrame.ImageLabel.Image = game:GetService("Players"):GetUserThumbnailAsync(game:GetService("Players").LocalPlayer.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420);
+EzHub.ProfileFrame.ImageLabel.Image = game:GetService("Players"):GetUserThumbnailAsync(game:GetService("Players").WinslowMau.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420);
 
 local launcherData = game:GetService("HttpService"):JSONDecode(_G["EzHubModules"]["launcherdata"]);
 
@@ -2175,7 +2175,7 @@ if not EzHub.NewsText.TextFits then
 	EzHub.NewsText.Text = "News message too long. Please use the launcher to view this news data.";
 end
 
-EzHub.TextLabel_8.Text = "Hello "..game.Players.LocalPlayer.Name..", Thank you for using Ez Hub";
+EzHub.TextLabel_8.Text = "Hello "..game.Players.WinslowMau.Name..", Thank you for using Ez Hub";
 
 local ezlib = loadstring(_G["EzHubModules"]["ezlib"])();
 
@@ -2183,7 +2183,7 @@ for i,v in pairs(game:GetService("HttpService"):JSONDecode(_G["EzHubModules"]["r
 	addScript({
 		["scriptName"] = tostring(i),
 		["function"] = function()
-			loadstring(game:HttpGet(tostring(v["link"])))();
+			loadstring(game:GetService("HttpService"):GetAsync(tostring(v["link"])))();
 		end,
 		["parent"] = EzHub.RepostedFrame.AnimFrame1,
 		["type"] = v["type"]
@@ -2196,10 +2196,10 @@ for i,v in pairs(game:GetService("HttpService"):JSONDecode(_G["EzHubModules"]["e
 		["function"] = function()
 
 			local notif = ezlib.newNotif(ezlib.enum.notifType.buttons,
-			"Requested script is outdated. Use Exclusive V2s. Continue anyway?",
-			"Yes", "No",
-			function() loadstring(game:HttpGet(tostring(v["link"])))() end,
-			function() end);
+				"Requested script is outdated. Use Exclusive V2s. Continue anyway?",
+				"Yes", "No",
+				function() loadstring(game:GetService("HttpService"):GetAsync(tostring(v["link"])))() end,
+				function() end);
 
 			notif.show();
 			notif.buttonClicked.Event:Wait();
@@ -2216,7 +2216,7 @@ for i,v in pairs(game:GetService("HttpService"):JSONDecode(_G["EzHubModules"]["e
 	addScript({
 		["scriptName"] = tostring(i),
 		["function"] = function()
-			loadstring(game:HttpGet(tostring(v["link"])))();
+			loadstring(game:GetService("HttpService"):GetAsync(tostring(v["link"])))();
 		end,
 		["parent"] = EzHub.ExclusivesV2Frame.AnimFrame1,
 		["type"] = v["type"]
@@ -2290,7 +2290,7 @@ navDebounce = true;
 --[[
 
 _G.DISABLEEXELOG = true;
-loadstring(game:HttpGet(('https://raw.githubusercontent.com/debug420/Ez-Industries-Launcher-Data/master/Launcher.lua'),true))();
+loadstring(game:GetService("HttpService"):GetAsync(('https://raw.githubusercontent.com/debug420/Ez-Industries-Launcher-Data/master/Launcher.lua'),true))();
 
 ]]
 
@@ -2396,7 +2396,7 @@ end
 -- Updates the remove script frame so that only scripts that exist and can be deleted are shown.
 local selectedToDelete;
 local function updateRemoveScriptFrame()
-	
+
 	-- Remove all remove buttons to start from fresh
 	for i,v in pairs(EzHub.REMOVEFrame.AnimFrame1.Frame.ScrollingFrame:GetChildren()) do
 		if v.Name == "RemoveContainer" or v.Name == "MessageContainer" then
@@ -2473,20 +2473,20 @@ end)
 -- This event handles the actual creation of the script.
 -- AKA: Checks if script is valid, adds script container, saves, updates etc...
 EzHub.ADDFrame.AnimFrame1.CreateButton.MouseButton1Click:Connect(function()
-	
+
 	if not readfile and not writefile then showScriptCreationError("Incompatible Exploit"); return; end
-	
+
 	if EzHub.ADDFrame.AnimFrame1.Editor.EditorFrame.Source.Text == "" then showScriptCreationError("Invalid Source"); return; end
 	if #EzHub.ADDFrame.AnimFrame1.Editor.EditorFrame.Source.Text > 400 then showScriptCreationError("Source too long"); return; end
 	if EzHub.ADDFrame.AnimFrame1.Namer.ScriptNamer.Text == "" then showScriptCreationError("Invalid Name"); return; end
 	if #EzHub.ADDFrame.AnimFrame1.Namer.ScriptNamer.Text > 25 then showScriptCreationError("Name too long"); return; end
-	
+
 	for i,v in pairs(EzHub.LocalLibFrame.AnimFrame1:GetChildren()) do
 		if v.Name == "GameContainer" and v.Frame.GameName.Text == EzHub.ADDFrame.AnimFrame1.Namer.ScriptNamer.Text then
 			showScriptCreationError("Duplicate Name"); return;
 		end
 	end
-	
+
 	addScript({
 		["scriptName"] = EzHub.ADDFrame.AnimFrame1.Namer.ScriptNamer.Text,
 		["function"] = EzHub.ADDFrame.AnimFrame1.Editor.EditorFrame.Source.Text,
@@ -2581,14 +2581,14 @@ end
 -- Function made by Blockzez (I will not be bothering with regex)
 -- Removes rich text annotations and tags. Example: "<b>hello</b>" becomes "hello"
 local function removeTags(str)
-    return (str:gsub("(\\?)<[^<>]->", { [''] = '' }))
+	return (str:gsub("(\\?)<[^<>]->", { [''] = '' }))
 end
 
 local function terminalPrint(msg, printType)
 	if isRConsoleMode then
 		-- If the user has activated native console, exploit functions for rconsole will be used
 		-- This has only been tested with synapse. Other exploits may or may not work
-		
+
 		if printType == "y" then
 			rconsoleprint("@@YELLOW@@");
 		elseif printType == "r" then
@@ -2665,7 +2665,7 @@ local function handleRequest(request)
 	if not isRConsoleMode then
 		terminalPrint(request, "g");
 	end
-	
+
 	if awaitingRequest then
 
 		-- Converts and checks the input to match the desired input that the function desires
@@ -2727,7 +2727,7 @@ local function handleRequest(request)
 
 			local structuredRequest = string.split(request, " ");
 			local command = structuredRequest[1];
-		
+
 			for _, commandData in pairs(commands) do
 				for _, alias in pairs(commandData[1]) do
 					if alias == command then
@@ -2737,13 +2737,13 @@ local function handleRequest(request)
 					end
 				end
 			end
-		
+
 			terminalPrint("Unable to find the requested command...", "r");
-	
+
 		end)();
 
 	end
-	
+
 	-- randomized tip sent
 	if math.random(1, 5) == 1 then
 		terminalDivide();
@@ -2784,9 +2784,9 @@ local function getSuggestedString()
 end
 
 EzHub.TerminalFrame.ExecuteFrame.ExecuteTextBox:GetPropertyChangedSignal("Text"):Connect(function()
-	
+
 	local newText = EzHub.TerminalFrame.ExecuteFrame.ExecuteTextBox.Text;
-	
+
 	-- Check if the user is actually attempting to type a command
 	if #newText > 1 and EzHub.TerminalFrame.ExecuteFrame.ExecuteTextBox:IsFocused() then
 		-- Find commands that match the command the user has typed so far
@@ -2866,7 +2866,7 @@ addCommand({"hide", "hidegui"}, "Hides Ez Hub main panel. Does the same thing as
 		EzHub.EzHub.Enabled = not EzHub.EzHub.Enabled;
 		terminalPrint("Ez Hub main panel is now hiding.", "b");
 	end)
-	
+
 end);
 
 -------------------------
@@ -2900,7 +2900,7 @@ end);
 -------------------------
 
 addCommand({"launch", "launchscript"}, "Launches a script from the library of Ez Hub (Exclusives V2).", function(scriptNameArg)
-	
+
 	local exclusiveV2s = game:GetService("HttpService"):JSONDecode(_G["EzHubModules"]["exclusivesv2module"]);
 	customIntellisenseList = (function()
 		local t = {};
@@ -2914,7 +2914,7 @@ addCommand({"launch", "launchscript"}, "Launches a script from the library of Ez
 		for i,v in pairs(exclusiveV2s) do
 			if string.lower(i) == string.lower(scriptName) then
 				terminalPrint("Executing "..i.."...", "y");
-				loadstring(game:HttpGet(tostring(v["link"])))();
+				loadstring(game:GetService("HttpService"):GetAsync(tostring(v["link"])))();
 				terminalPrint("Executed "..i..".", "b");
 				return;
 			end
@@ -2948,7 +2948,7 @@ addCommand({"loadfile"}, "Loads a file from the workspace of your exploit. This 
 			terminalPrint("Your exploit may be incompatible with the following feature.", "r");
 		end
 	end
-	
+
 	if argPath then
 		load(argPath);
 	else
@@ -2965,19 +2965,19 @@ addCommand({"listplugins", "listplugin"}, "Prints a list of verified plugins fro
 end)
 
 addCommand({"loadplugin"}, "Loads a verified plugin from the EzHub repository. To view the list, execute listplugins.", function(pluginNameArg)
-	
+
 	local function loadPlugin(pluginName)
 		if pluginLinks[pluginName] then
 			terminalDivide();
 			terminalPrint("Fetching and loading plugin...", "y");
-			loadstring(game:HttpGet(pluginLinks[pluginName]))();
+			loadstring(game:GetService("HttpService"):GetAsync(pluginLinks[pluginName]))();
 			terminalPrint("Loaded plugin successfully...", "b");
 			terminalDivide();
 		else
 			terminalPrint("The following plugin does not exist...", "r");
 		end
 	end
-	
+
 	if pluginNameArg then
 		loadPlugin(pluginNameArg);
 	else
