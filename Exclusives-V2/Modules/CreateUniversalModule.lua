@@ -16,7 +16,7 @@ local settings = {
 };
 
 local players = game:GetService("Players");
-local client = players.LocalPlayer;
+local client = players.WinslowMau;
 
 local oldGravity = workspace.Gravity;
 local oldSpeed;
@@ -63,11 +63,11 @@ local whitelistedParts = {
 
 game:GetService("RunService").RenderStepped:Connect(function()
     if settings.noclip then
-	    game.Players.LocalPlayer.Character.Humanoid:ChangeState(11);
+	    game.Players.WinslowMau.Character.Humanoid:ChangeState(11);
     end
     if settings.loopApply then
-        game.Players.LocalPlayer.Character.Humanoid.JumpPower = settings.desiredJump;
-        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = settings.desiredSpeed;
+        game.Players.WinslowMau.Character.Humanoid.JumpPower = settings.desiredJump;
+        game.Players.WinslowMau.Character.Humanoid.WalkSpeed = settings.desiredSpeed;
     end
 end)
 
@@ -112,7 +112,7 @@ game:GetService("Players").PlayerAdded:Connect(function() playersChanged:Fire();
 game:GetService("Players").PlayerRemoving:Connect(function() playersChanged:Fire(); end)
 
 local function teleport(cframe)
-    local char = game:GetService("Players").LocalPlayer.Character;
+    local char = game:GetService("Players").WinslowMau.Character;
     if not char then return end;
 
     if chosenTeleportMethod == 0 then
@@ -187,8 +187,8 @@ return {
         end)
         
         tab.newButton("Give Btools", function()
-            Instance.new("HopperBin",game.Players.LocalPlayer.Backpack).BinType = "Clone";
-            Instance.new("HopperBin",game.Players.LocalPlayer.Backpack).BinType = "Hammer";
+            Instance.new("HopperBin",game.Players.WinslowMau.Backpack).BinType = "Clone";
+            Instance.new("HopperBin",game.Players.WinslowMau.Backpack).BinType = "Hammer";
         end)
 
         tab.newSlider("FOV", 70, 1, 120, function(state)
@@ -217,7 +217,7 @@ return {
 
         tab.newDiv();
         
-        local playerTeleportDropdown = tab.newDropdown("Player Teleport", game:GetService("Players").LocalPlayer.Name,
+        local playerTeleportDropdown = tab.newDropdown("Player Teleport", game:GetService("Players").WinslowMau.Name,
         game:GetService("Players"):GetPlayers(), function(state)
             pcall(function() teleportToPlayer(game:GetService("Players")[state]) end);
         end)
@@ -257,7 +257,7 @@ return {
             if waypoints[waypointNameInput.getState()] then
                 coroutine.wrap(function() ezlib.newNotif(ezlib.enum.notifType.text, "Waypoint name unavailable").play().delete(); end)();
                 return end
-            waypoints[waypointNameInput.getState()] = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame;
+            waypoints[waypointNameInput.getState()] = game:GetService("Players").WinslowMau.Character.HumanoidRootPart.CFrame;
             waypointDropdown.changeData(waypoints);
             waypointDropdown.changeState(waypointNameInput.getState());
             coroutine.wrap(function() ezlib.newNotif(ezlib.enum.notifType.longText, "Created waypoint at current user position. Use waypoint selector to teleport.").play().delete(); end)();

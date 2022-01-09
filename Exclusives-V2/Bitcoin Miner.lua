@@ -37,7 +37,7 @@ coroutine.wrap(function()
 end)();
 
 local antiAFK = true;
-game:GetService("Players").LocalPlayer.Idled:connect(function()
+game:GetService("Players").WinslowMau.Idled:connect(function()
     if not antiAFK then return end;
     game:GetService("VirtualUser"):Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame);
     wait(1);
@@ -70,7 +70,7 @@ mainTab.newButton("Save Plot", function()
 end)
 
 local function getPlayerObjects(p)
-    if not p then p = game.Players.LocalPlayer; end
+    if not p then p = game.Players.WinslowMau; end
     return workspace.Buildings[p.Name]:GetChildren();
 end
 
@@ -107,15 +107,15 @@ end
 for i,v in pairs(gpuOptions) do
     buyTab.newDesc(i.." Price: "..tostring(v[1]).." BPS:"..v[2]);
     buyTab.newButton("Buy", function()
-        local oldpos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame;
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(210.618622, 4.87277555, 74.0331802);
+        local oldpos = game.Players.WinslowMau.Character.HumanoidRootPart.CFrame;
+        game.Players.WinslowMau.Character.HumanoidRootPart.CFrame = CFrame.new(210.618622, 4.87277555, 74.0331802);
         wait();
         game:GetService("ReplicatedStorage").Events.BuyCard:FireServer(i, workspace.Region_shop.Shows[v[3]]);
         coroutine.wrap(function() 
             ezlib.newNotif(ezlib.enum.notifType.longText, "Sent purchase request for "..i).play().delete();
         end)();
         wait(.5);
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldpos;
+        game.Players.WinslowMau.Character.HumanoidRootPart.CFrame = oldpos;
     end)
     buyTab.newDiv();
 end

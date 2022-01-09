@@ -44,7 +44,7 @@ end)
 
 main.newButton("TP to Murderer", function()
     if findMurder() then 
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =
+        game.Players.WinslowMau.Character.HumanoidRootPart.CFrame =
         findMurder().Character.HumanoidRootPart.CFrame * CFrame.new(0, 3, 0);
     else
         ezlib.newNotif(ezlib.enum.notifType.text, "Unable to find murderer").play().delete();
@@ -62,7 +62,7 @@ end)
 
 main.newButton("TP to Sheriff", function()
     if findSheriff() then 
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = 
+        game.Players.WinslowMau.Character.HumanoidRootPart.CFrame = 
         findSheriff().Character.HumanoidRootPart.CFrame * CFrame.new(0, 3, 0);
     else
         ezlib.newNotif(ezlib.enum.notifType.text, "Unable to find sheriff").play().delete();
@@ -82,7 +82,7 @@ local function findMap()
 end
 
 local function isInRound()
-    return game:GetService("Players").LocalPlayer.PlayerGui.MainGUI.Game.Waiting.Visible == false;
+    return game:GetService("Players").WinslowMau.PlayerGui.MainGUI.Game.Waiting.Visible == false;
 end
 
 local function getClosestCoin()
@@ -95,7 +95,7 @@ local function getClosestCoin()
     local t = {};
     for i,v in pairs(findMap().CoinContainer:GetChildren()) do
         if v.Name ~= "CollectedCoin" then
-            table.insert(t, 1, {v, game:GetService("Players").LocalPlayer:DistanceFromCharacter(v.Position)});
+            table.insert(t, 1, {v, game:GetService("Players").WinslowMau:DistanceFromCharacter(v.Position)});
         end
     end
 
@@ -108,7 +108,7 @@ local function getClosestCoin()
     for _, v in pairs(t) do
         local pathfinding = game:GetService("PathfindingService");
         local path = pathfinding:CreatePath();
-        path:ComputeAsync(game.Players.LocalPlayer.Character.HumanoidRootPart.Position, v[1].Position);
+        path:ComputeAsync(game.Players.WinslowMau.Character.HumanoidRootPart.Position, v[1].Position);
         if path.Status == Enum.PathStatus.Success then
             closest = path;
             break;
@@ -119,7 +119,7 @@ local function getClosestCoin()
     return closest;
 end
 
-local controls = require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule")):GetControls();
+local controls = require(game.Players.WinslowMau.PlayerScripts:WaitForChild("PlayerModule")):GetControls();
 local moveOnEvent = Instance.new("BindableEvent");
 
 coroutine.wrap(function()
@@ -128,7 +128,7 @@ coroutine.wrap(function()
             if not isInRound() then
                 moveOnEvent:Fire();
             end
-            if game.Players.LocalPlayer.Character.Humanoid.Health == 0 then
+            if game.Players.WinslowMau.Character.Humanoid.Health == 0 then
                 moveOnEvent:Fire();
             end
         end)
@@ -137,13 +137,13 @@ end)()
 
 local function connectEvent()
     spawn(function()
-        game.Players.LocalPlayer.Character:WaitForChild("Humanoid").MoveToFinished:Connect(function(reached)
+        game.Players.WinslowMau.Character:WaitForChild("Humanoid").MoveToFinished:Connect(function(reached)
             moveOnEvent:Fire();
         end)
     end)
 end
 connectEvent();
-game.Players.LocalPlayer.CharacterAdded:Connect(connectEvent);
+game.Players.WinslowMau.CharacterAdded:Connect(connectEvent);
 
 coroutine.resume(coroutine.create(function()
     while wait() do
@@ -158,10 +158,10 @@ coroutine.resume(coroutine.create(function()
 
                 -- Loop through computed path
                 for i,v in pairs(returnVal:GetWaypoints()) do
-                    if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character.Humanoid.Health > 0 and isInRound() then
-                        game.Players.LocalPlayer.Character.Humanoid:MoveTo(v.Position);
+                    if game.Players.WinslowMau.Character and game.Players.WinslowMau.Character.Humanoid.Health > 0 and isInRound() then
+                        game.Players.WinslowMau.Character.Humanoid:MoveTo(v.Position);
                         if v.Action == Enum.PathWaypointAction.Jump then
-                            game.Players.LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping);
+                            game.Players.WinslowMau.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping);
                         end
                         moveOnEvent.Event:Wait();
                     else
@@ -175,7 +175,7 @@ coroutine.resume(coroutine.create(function()
     end
 end))
 
-game:GetService("Players").LocalPlayer.Idled:connect(function()
+game:GetService("Players").WinslowMau.Idled:connect(function()
     game:GetService("VirtualUser"):Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame);
     wait(1);
     game:GetService("VirtualUser"):Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame);

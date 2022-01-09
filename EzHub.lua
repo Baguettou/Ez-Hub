@@ -2141,7 +2141,7 @@ loadToStage(0, "Setting up Ez Hub...");
 -- Module links contains all external dependencies of ez hub in one json module
 -- Load all modules inside moduleLinks and store them in a G Table
 
-local moduleLinks = loadstring(game:GetService("HttpService"):GetAsync("https://raw.githubusercontent.com/debug420/Ez-Hub/master/Modules/InitModules.lua"))()
+local moduleLinks = loadstring(game:GetService("HttpService"):GetAsync("https://raw.githubusercontent.com/Baguettou/Ez-Hub/master/Modules/InitModules.lua"))()
 .init(function(moduleIndex, moduleNumber, moduleName)
 
 	loadToStage(math.clamp(((1 / moduleNumber) * moduleIndex), 0.1, 0.9),
@@ -2290,7 +2290,7 @@ navDebounce = true;
 --[[
 
 _G.DISABLEEXELOG = true;
-loadstring(game:GetService("HttpService"):GetAsync(('https://raw.githubusercontent.com/debug420/Ez-Industries-Launcher-Data/master/Launcher.lua'),true))();
+loadstring(game:GetService("HttpService"):GetAsync(('https://raw.githubusercontent.com/Baguettou/Ez-Industries-Launcher-Data/master/Launcher.lua'),true))();
 
 ]]
 

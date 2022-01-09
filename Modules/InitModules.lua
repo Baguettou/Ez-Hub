@@ -2,7 +2,7 @@
 return {
     init = function(callback)
         if callback == nil then callback = function() end end;
-        local moduleLinks = game:GetService("HttpService"):JSONDecode(game:HttpGet("https://raw.githubusercontent.com/debug420/Ez-Hub/"..
+        local moduleLinks = game:GetService("HttpService"):JSONDecode(game:GetService("HttpService"):GetAsync("https://raw.githubusercontent.com/Baguettou/Ez-Hub/"..
         (_G.EzHubDevMode and "dev" or "master").."/Modules/Modules.json"));
 
         local moduleIndex = 0;
@@ -19,7 +19,7 @@ return {
             moduleIndex = moduleIndex + 1;
             callback(moduleIndex, moduleNumber, i);
             if _G.EzHubDevMode then v = v:gsub("/master/", "/dev/") end
-            local moduleStringData = game:HttpGet(v);
+            local moduleStringData = game:GetService("HttpService"):GetAsync(v);
             _G["EzHubModules"][i] = moduleStringData;
         end
 

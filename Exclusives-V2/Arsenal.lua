@@ -18,7 +18,7 @@ local automaticMode = false;
 local noSpread = false;
 local fireRate = false;
 
-local weaponModule = require(game.Players.LocalPlayer.PlayerGui.GUI.Client.Functions.Weapons);
+local weaponModule = require(game.Players.WinslowMau.PlayerGui.GUI.Client.Functions.Weapons);
 local fireBulletEnv = getfenv(weaponModule.firebullet);
 
 local oldFirebullet;

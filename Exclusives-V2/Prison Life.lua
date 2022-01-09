@@ -38,7 +38,7 @@ main.newButton("Police", function()
 end)
 
 main.newButton("Criminal", function()
-	local LP = game.Players.LocalPlayer;
+	local LP = game.Players.WinslowMau;
 	local RE = LP.Character.HumanoidRootPart.Position;
 	LP.Character.HumanoidRootPart.CFrame = CFrame.new(-919.958, 95.327, 2138.189);
 	wait(0.075);
@@ -50,20 +50,20 @@ main.newTitle("Rage");
 
 main.newButton("Kill All", function()
 	local e = game.ReplicatedStorage.meleeEvent;
-	local oldpos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame;
+	local oldpos = game.Players.WinslowMau.Character.HumanoidRootPart.CFrame;
 	workspace.Remote.TeamEvent:FireServer("Medium stone grey");
 
 	for i, v in pairs(game:GetService("Players"):GetPlayers()) do
-		if v ~= game.Players.LocalPlayer then
+		if v ~= game.Players.WinslowMau then
 			repeat wait()
 				local start = tick();
-				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame;
+				game.Players.WinslowMau.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame;
 				e:FireServer(v);
-				game.Players.LocalPlayer.Character.Humanoid.Sit = false;
+				game.Players.WinslowMau.Character.Humanoid.Sit = false;
 			until v.Character.Humanoid.Health == 0 or tick() - start >= 6
 		end
 	end
-	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldpos;
+	game.Players.WinslowMau.Character.HumanoidRootPart.CFrame = oldpos;
 end)
 
 ----------------------------------------------------------------------

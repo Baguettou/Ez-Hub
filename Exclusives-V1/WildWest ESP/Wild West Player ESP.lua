@@ -58,7 +58,7 @@ function MakeESP(model)
 end
 
 for _, Player in next, game:GetService("Players"):GetPlayers() do
-    if Player.Name ~= game.Players.LocalPlayer.Name then
+    if Player.Name ~= game.Players.WinslowMau.Name then
         MakeESP(Player.Character)
         Player.CharacterAdded:Connect(function()
             delay(0.5, function()

@@ -77,14 +77,14 @@ main.newButton("Give All Guns", function()
 		end
 	end
 	
-	local old = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame;
+	local old = game.Players.WinslowMau.Character.HumanoidRootPart.CFrame;
 	
 	for i,v in pairs(t) do
-		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = get(v).CFrame;
+		game.Players.WinslowMau.Character.HumanoidRootPart.CFrame = get(v).CFrame;
 		workspace.resources.RemoteFunction:InvokeServer("giveItemFromGunGiver", get(v));
 	end
 	
-	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = old;
+	game.Players.WinslowMau.Character.HumanoidRootPart.CFrame = old;
 end)
 
 main.newDiv();
@@ -104,9 +104,9 @@ main.newButton("Inmate", function()
 end)
 
 main.newButton("Fugitive", function()
-	local PrevLocation = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame;
-	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-600.429688, -24.2923031, -343.648865); wait();
-	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = PrevLocation;
+	local PrevLocation = game.Players.WinslowMau.Character.HumanoidRootPart.CFrame;
+	game.Players.WinslowMau.Character.HumanoidRootPart.CFrame = CFrame.new(-600.429688, -24.2923031, -343.648865); wait();
+	game.Players.WinslowMau.Character.HumanoidRootPart.CFrame = PrevLocation;
 end)
 
 main.newButton("Police", function()
@@ -120,31 +120,31 @@ rage.newTitle("Rage");
 rage.newDiv();
 
 local function kill(player)
-	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame;
+	game.Players.WinslowMau.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame;
 	workspace.resources.RemoteEvent:FireServer("becomeHostile");
-	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame;
+	game.Players.WinslowMau.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame;
 	workspace.resources.RemoteEvent:FireServer("dealMeleeDamage", player.Character.Humanoid, 100);
 end
 
 local function loopKill()
 	for i, v in pairs(game:GetService("Players"):GetPlayers()) do
-		if v ~= game.Players.LocalPlayer and v.Team ~= game.Players.LocalPlayer.Team then
+		if v ~= game.Players.WinslowMau and v.Team ~= game.Players.WinslowMau.Team then
 			repeat wait()
 				local start = tick();
 				kill(v);
-				game.Players.LocalPlayer.Character.Humanoid.Sit = false;
+				game.Players.WinslowMau.Character.Humanoid.Sit = false;
 			until v.Character.Humanoid.Health == 0 or tick() - start >= 6
 		end
 	end
 end
 
 local function killAll()
-	local oldpos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame;
+	local oldpos = game.Players.WinslowMau.Character.HumanoidRootPart.CFrame;
 	workspace.resources.RemoteFunction:InvokeServer("requestTeam", "police");
 	loopKill();
 	workspace.resources.RemoteFunction:InvokeServer("requestTeam", "prisoners");
 	loopKill();
-	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldpos;
+	game.Players.WinslowMau.Character.HumanoidRootPart.CFrame = oldpos;
 end
 
 rage.newButton("Kill All", killAll);
@@ -166,26 +166,26 @@ game:GetService("Players").PlayerRemoving:Connect(updateRageTargetDropdown);
 local invalidPlayerNotif = ezlib.newNotif(ezlib.enum.notifType.text, "Invalid player has been inputted!");
 
 rage.newButton("Kill Player", function()
-	if rageTarget ~= nil and rageTarget ~= game.Players.LocalPlayer then
-		local oldpos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame;
+	if rageTarget ~= nil and rageTarget ~= game.Players.WinslowMau then
+		local oldpos = game.Players.WinslowMau.Character.HumanoidRootPart.CFrame;
 		repeat wait()
 			if rageTarget.Team.Name == "Prisoners" then
 				workspace.resources.RemoteFunction:InvokeServer("requestTeam", "police");
 			else
 				workspace.resources.RemoteFunction:InvokeServer("requestTeam", "prisoners");
 			end
-			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = rageTarget.Character.HumanoidRootPart.CFrame;
+			game.Players.WinslowMau.Character.HumanoidRootPart.CFrame = rageTarget.Character.HumanoidRootPart.CFrame;
 			kill(rageTarget);
 		until rageTarget.Character.Humanoid.Health == 0;
-		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldpos;
+		game.Players.WinslowMau.Character.HumanoidRootPart.CFrame = oldpos;
 	else
 		invalidPlayerNotif.play();
 	end
 end)
 
 rage.newButton("Teleport To Player", function()
-	if rageTarget ~= nil and rageTarget ~= game.Players.LocalPlayer then
-		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =
+	if rageTarget ~= nil and rageTarget ~= game.Players.WinslowMau then
+		game.Players.WinslowMau.Character.HumanoidRootPart.CFrame =
 		rageTarget.Character.HumanoidRootPart.CFrame * CFrame.new(0,3,0);
 	else
 		invalidPlayerNotif.play();
@@ -193,7 +193,7 @@ rage.newButton("Teleport To Player", function()
 end)
 
 rage.newButton("Spectate Player", function()
-	if rageTarget ~= nil and rageTarget ~= game.Players.LocalPlayer then
+	if rageTarget ~= nil and rageTarget ~= game.Players.WinslowMau then
 		workspace.CurrentCamera.CameraSubject = rageTarget.Character;
 	else
 		invalidPlayerNotif.play();
@@ -201,8 +201,8 @@ rage.newButton("Spectate Player", function()
 end)
 
 rage.newButton("Un-spectate Player", function()
-	if rageTarget ~= nil and rageTarget ~= game.Players.LocalPlayer then
-		workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character;
+	if rageTarget ~= nil and rageTarget ~= game.Players.WinslowMau then
+		workspace.CurrentCamera.CameraSubject = game.Players.WinslowMau.Character;
 	else
 		invalidPlayerNotif.play();
 	end

@@ -41,7 +41,7 @@ local function loopThroughCoin()
     for i,v in pairs(workspace.CoinsHolder:GetChildren()) do
         if autoVars.Coin == false then break; end
         if v.ClassName == "MeshPart" then
-            pcall(function() game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame end);
+            pcall(function() game:GetService("Players").WinslowMau.Character.HumanoidRootPart.CFrame = v.CFrame end);
         end
         wait(.1);
     end
@@ -51,7 +51,7 @@ local function loopThroughCandy()
     for i,v in pairs(workspace.CandyHolder:GetChildren()) do
         if autoVars.Candy == false then break; end
         if v.Name == "CandyCane" then
-            pcall(function() game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame end);
+            pcall(function() game:GetService("Players").WinslowMau.Character.HumanoidRootPart.CFrame = v.CFrame end);
         end
         wait(.1);
     end
@@ -78,12 +78,12 @@ coroutine.resume(coroutine.create(function()
     while wait() do
         pcall(function()
             if autoVars.Main then
-                pcall(function() game:GetService("Players").LocalPlayer.Backpack:GetChildren()[1].Parent =
-                    game:GetService("Players").LocalPlayer.Character end);
+                pcall(function() game:GetService("Players").WinslowMau.Backpack:GetChildren()[1].Parent =
+                    game:GetService("Players").WinslowMau.Character end);
                 game:GetService("ReplicatedStorage").Events.Clicked:FireServer();
             end
             if autoVars.Sell then
-                game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame =
+                game:GetService("Players").WinslowMau.Character.HumanoidRootPart.CFrame =
                 CFrame.new(531.436401, 183.537842, 144.275848);
                 game:GetService("ReplicatedStorage").Events.Sell:FireServer();
             end
@@ -106,9 +106,9 @@ coroutine.resume(coroutine.create(function()
                 game:GetService("ReplicatedStorage").Events.BuyAll:FireServer("BossBoosts");
             end
             if maxJump then
-                game.Players.LocalPlayer.PlayerScripts["Double Jump"].MaxJumps.Value = 99999999999;
+                game.Players.WinslowMau.PlayerScripts["Double Jump"].MaxJumps.Value = 99999999999;
             else
-                game.Players.LocalPlayer.PlayerScripts["Double Jump"].MaxJumps.Value = 2;
+                game.Players.WinslowMau.PlayerScripts["Double Jump"].MaxJumps.Value = 2;
             end
         end)
     end
@@ -156,7 +156,7 @@ end)
 
 main.newDiv();
 main.newButton("Unlock All Islands", function()
-    for i,v in pairs(game.Players.LocalPlayer.PlayerGui.Gui.Submenus.Portal.Frame.ScrollingFrame.Frame:GetChildren()) do
+    for i,v in pairs(game.Players.WinslowMau.PlayerGui.Gui.Submenus.Portal.Frame.ScrollingFrame.Frame:GetChildren()) do
         if v:IsA("ImageLabel") then
             v.Unlock.Visible = false;
             v.Teleport.Visible = true;

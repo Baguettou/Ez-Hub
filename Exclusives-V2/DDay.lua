@@ -11,7 +11,7 @@ local gunMods = mainGUI.newTab("Gun Mods");
 
 -- Disable connections that ensure nothing changes to the client PlayerScripts
 
-local mainClient = game.Players.LocalPlayer.PlayerScripts._Client_Main_;
+local mainClient = game.Players.WinslowMau.PlayerScripts._Client_Main_;
 local changedClientConnection = getconnections(mainClient.Changed);
 local ancestryChangedClientConnnection = getconnections(mainClient.AncestryChanged);
 
@@ -90,7 +90,7 @@ end
 --     if nocamerashake then
 --         arg[2] = {
 --             CoordinateFrame,
---             Focus = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+--             Focus = game.Players.WinslowMau.Character.HumanoidRootPart.CFrame
 --         }
 --     end
 

@@ -13,7 +13,7 @@ main.newTitle("Main");
 main.newDiv();
 
 local function getTank()
-    return workspace.Tanks:FindFirstChild("Tank-"..game:GetService("Players").LocalPlayer.Name);
+    return workspace.Tanks:FindFirstChild("Tank-"..game:GetService("Players").WinslowMau.Name);
 end
 
 local tankSettings = {
@@ -110,7 +110,7 @@ coroutine.resume(coroutine.create(function()
         if ff then
             for i, v in pairs(game.Players:GetPlayers()) do
                 if workspace.Tanks:FindFirstChild("Tank-"..v.Name) then
-                    if v.TeamColor == game.Players.LocalPlayer.TeamColor then
+                    if v.TeamColor == game.Players.WinslowMau.TeamColor then
                         game:GetService("ReplicatedStorage").Remotes.FireAbility:FireServer(getTank(), "Absorb", Tank.Base.Position, Vector3.new(Tank.Base.Position.X-70,Tank.Base.Position.Y,Tank.Base.Position.Z-70))
                     end
                 end

@@ -78,7 +78,7 @@ end
 
 local function getTracerPoint()
     if espConfig.locktocursor then
-        return Vector2.new(game.Players.LocalPlayer:GetMouse().X, game.Players.LocalPlayer:GetMouse().Y) + Vector2.new(0, 36);
+        return Vector2.new(game.Players.WinslowMau:GetMouse().X, game.Players.WinslowMau:GetMouse().Y) + Vector2.new(0, 36);
     else
         return Vector2.new(workspace.CurrentCamera.ViewportSize.X/2, workspace.CurrentCamera.ViewportSize.Y);
     end
@@ -87,9 +87,9 @@ end
 local function checkTeam(player)
     if espConfig.teamcheck and player and player.Parent then
         if isPhantom then
-            return _G.getPlayerInstanceFromCharacter(player).Team ~= game.Players.LocalPlayer.Team;
+            return _G.getPlayerInstanceFromCharacter(player).Team ~= game.Players.WinslowMau.Team;
         else
-            return game:GetService("Players"):FindFirstChild(player.Name).Team ~= game:GetService("Players").LocalPlayer.Team;
+            return game:GetService("Players"):FindFirstChild(player.Name).Team ~= game:GetService("Players").WinslowMau.Team;
         end
     else
         return true;
@@ -305,7 +305,7 @@ end
 
 if not isPhantom then
     for _, player in pairs(game:GetService("Players"):GetPlayers()) do
-        if player.Name ~= game.Players.LocalPlayer.Name then
+        if player.Name ~= game.Players.WinslowMau.Name then
             drawESP(player.Character);
             player.CharacterAdded:Connect(function()
                 delay(0.5, function()
@@ -326,7 +326,7 @@ else
     for _, player in pairs(workspace.Players:GetDescendants()) do
 		if player.Name == "Player" then
 			if _G.getPlayerInstanceFromCharacter(player) 
-            and _G.getPlayerInstanceFromCharacter(player).Name ~= game:GetService("Players").LocalPlayer.Name then
+            and _G.getPlayerInstanceFromCharacter(player).Name ~= game:GetService("Players").WinslowMau.Name then
 				delay(0.5, function()
 					drawESP(player);
 				end)
@@ -336,7 +336,7 @@ else
 
 	workspace.Players.DescendantAdded:Connect(function(Player)
 		if Player.Name == "Player" and Player:FindFirstChild("Left Arm") and _G.getPlayerInstanceFromCharacter(Player) 
-        and _G.getPlayerInstanceFromCharacter(Player).Name ~= game:GetService("Players").LocalPlayer.Name then
+        and _G.getPlayerInstanceFromCharacter(Player).Name ~= game:GetService("Players").WinslowMau.Name then
 			delay(0.5, function()
 				drawESP(Player);
 			end)

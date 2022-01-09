@@ -38,7 +38,7 @@ end
 
 local function matchesFreeForAllConditions(targetPlayer)
 	if aimbotSettings.freeforall == false then
-		if game.Players.LocalPlayer.Team == targetPlayer.Team then
+		if game.Players.WinslowMau.Team == targetPlayer.Team then
 			return false;
 		else
 			return true;
@@ -72,10 +72,10 @@ local function getClosestToCursor()
 	for _, v in pairs(game:GetService("Players"):GetPlayers()) do
 		if matchesFreeForAllConditions(v) and (isPhantom and _G.getBodyparts(v) or true) then
 			if v and v.Character and (isPhantom and v.Character:FindFirstChild("Left Arm") or v.Character:FindFirstChild("Head"))
-			and v ~= game.Players.LocalPlayer then
+			and v ~= game.Players.WinslowMau then
 				local point, onScreen = worldToScreen(v.Character.Head.Position);
 				if onScreen and notObstructing(v.Character.Head.Position, {
-					game.Players.LocalPlayer.Character,
+					game.Players.WinslowMau.Character,
 					v.Character,	-- Ignore the target's player model
                     workspace.CurrentCamera	-- Ignore things like gun model of client
 				}) then

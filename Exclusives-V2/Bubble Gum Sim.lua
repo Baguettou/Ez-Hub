@@ -9,11 +9,11 @@ local teleport = mainGUI.newTab("Teleport");
 ----------------------------------------------------------------------
 
 -- Get Modules
-local guiservice = require(game.Players.LocalPlayer.PlayerGui.ScreenGui.ClientScript.Modules.GuiService);
-local inputservice = require(game.Players.LocalPlayer.PlayerGui.ScreenGui.ClientScript.Modules.InputService);
+local guiservice = require(game.Players.WinslowMau.PlayerGui.ScreenGui.ClientScript.Modules.GuiService);
+local inputservice = require(game.Players.WinslowMau.PlayerGui.ScreenGui.ClientScript.Modules.InputService);
 local gumm = require(game:GetService("ReplicatedStorage").Assets.Modules.ItemDataService.GumModule);
 local worldm = require(game:GetService("ReplicatedStorage").Assets.Modules.ItemDataService.WorldModule);
-local worlds = require(game.Players.LocalPlayer.PlayerGui.ScreenGui.ClientScript.Modules.WorldService);
+local worlds = require(game.Players.WinslowMau.PlayerGui.ScreenGui.ClientScript.Modules.WorldService);
 
 --guiservice:CutsceneFade(false)
 --guiservice:SetOverlay(false)
@@ -26,7 +26,7 @@ local isSelling = false;
 -- Get Network
 -- I switched get network to a diff method that uses garbage collection
 local network;
--- for i,v in pairs(getconnections(game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.MainButtons.Sell.MouseButton1Down)) do
+-- for i,v in pairs(getconnections(game:GetService("Players").WinslowMau.PlayerGui.ScreenGui.MainButtons.Sell.MouseButton1Down)) do
 --     network = getfenv(v.Function).Network;
 -- end
 
@@ -76,16 +76,16 @@ end)
 
 -- Tween Teleport Function
 local function tweenplayer(cframe)
-    repeat wait() until game.Players.LocalPlayer.Character
+    repeat wait() until game.Players.WinslowMau.Character
     and not isSelling
-    and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") 
-    and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
-    and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").Health > 0;
+    and game.Players.WinslowMau.Character:FindFirstChild("HumanoidRootPart") 
+    and game.Players.WinslowMau.Character:FindFirstChild("Humanoid")
+    and game.Players.WinslowMau.Character:FindFirstChild("Humanoid").Health > 0;
 
     isTweening = true;
 
-    local tweenInfo = TweenInfo.new(((cframe.p - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude) / 30);
-    local tweenPlayer = game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart,
+    local tweenInfo = TweenInfo.new(((cframe.p - game.Players.WinslowMau.Character.HumanoidRootPart.Position).Magnitude) / 30);
+    local tweenPlayer = game:GetService("TweenService"):Create(game.Players.WinslowMau.Character.HumanoidRootPart,
     tweenInfo, {CFrame = cframe});
     tweenPlayer:Play();
     tweenPlayer.Completed:Wait(); wait(.5);
@@ -98,9 +98,9 @@ local function sell()
     repeat wait() until not isTweening;
     isSelling = true;
     wait(.5);
-    local oldPos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame;
+    local oldPos = game.Players.WinslowMau.Character.HumanoidRootPart.CFrame;
     -- Simulates mouse click on the sell button so that it's not easily detectable
-    getconnections(game.Players.LocalPlayer.PlayerGui.ScreenGui.MainButtons.Sell.MouseButton1Down)[1].Function();
+    getconnections(game.Players.WinslowMau.PlayerGui.ScreenGui.MainButtons.Sell.MouseButton1Down)[1].Function();
     wait(2);
     isSelling = false;
     tweenplayer(oldPos);
@@ -116,7 +116,7 @@ end
 -- The reason that I did not just check GUI max and instead bothered with getting client data
 -- is because the max display did not show the true max because of the gamepass bypass code I made above
 local function isBubbleFull()
-    local stat = game.Players.LocalPlayer.PlayerGui.ScreenGui.StatsFrame.Bubble.Amount.Text
+    local stat = game.Players.WinslowMau.PlayerGui.ScreenGui.StatsFrame.Bubble.Amount.Text
     local s = stat:split("/");
     if tonumber(s[1]) >= gumm[network:Call("GetClientData", 2)[2]].AirCapacity then
         return true;
@@ -129,8 +129,8 @@ end
 
 -- Take to the spawn so that the character is near the coins
 local function takeToSpawn()
-    if game.Players.LocalPlayer:DistanceFromCharacter(Vector3.new(70.4115906, 44.6981506, -238.785828)) > 100 then
-        game.Players.LocalPlayer.Character.Humanoid.Health = 0;
+    if game.Players.WinslowMau:DistanceFromCharacter(Vector3.new(70.4115906, 44.6981506, -238.785828)) > 100 then
+        game.Players.WinslowMau.Character.Humanoid.Health = 0;
         wait(2);
     end
     tweenplayer(CFrame.new(70.4115906, 44.6981506, -238.785828));
@@ -140,8 +140,8 @@ end
 local function nearestCoin()
     local closest, distance = nil, 200;
     for i,v in pairs(workspace.Pickups:GetChildren()) do
-        if v.Name == "Part" and v.Transparency == 0 and game.Players.LocalPlayer:DistanceFromCharacter(v.Position) < distance and (v.Position - Vector3.new(70.4115906, 44.6981506, -238.785828)).Magnitude < 250 then
-            closest = v; distance = game.Players.LocalPlayer:DistanceFromCharacter(v.Position);
+        if v.Name == "Part" and v.Transparency == 0 and game.Players.WinslowMau:DistanceFromCharacter(v.Position) < distance and (v.Position - Vector3.new(70.4115906, 44.6981506, -238.785828)).Magnitude < 250 then
+            closest = v; distance = game.Players.WinslowMau:DistanceFromCharacter(v.Position);
         end
     end
     return closest;
@@ -165,7 +165,7 @@ coroutine.resume(coroutine.create(function()
     while wait() do
 
         if autoPickup and worlds:GetCurrentWorld() == "Overworld" then
-            if game.Players.LocalPlayer:DistanceFromCharacter(Vector3.new(70.4115906, 44.6981506, -238.785828)) < 100 then
+            if game.Players.WinslowMau:DistanceFromCharacter(Vector3.new(70.4115906, 44.6981506, -238.785828)) < 100 then
                 takeToSpawn();
             end
             local n = nearestCoin();

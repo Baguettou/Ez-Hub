@@ -17,7 +17,7 @@ local bunnyjumpdisablerenabled = false
 
 game:GetService("UserInputService").JumpRequest:Connect(function()
 	if infjumpenabled then
-		game:GetService("Players").LocalPlayer.Character.Humanoid:ChangeState("Jumping")
+		game:GetService("Players").WinslowMau.Character.Humanoid:ChangeState("Jumping")
 	end
 end)
 
@@ -28,29 +28,29 @@ pcall(function()
 
     local oldNamecall;
     local oldIndex;
-    local oldspeed, oldjump = game:GetService("Players").LocalPlayer.Character.Humanoid.WalkSpeed, game:GetService("Players").LocalPlayer.Character.Humanoid.JumpPower
+    local oldspeed, oldjump = game:GetService("Players").WinslowMau.Character.Humanoid.WalkSpeed, game:GetService("Players").WinslowMau.Character.Humanoid.JumpPower
     
     oldNamecall = hookmetamethod(game, "__namecall", function(self, ...)
-        if getnamecallmethod() == "Kick" and self == game.Players.LocalPlayer then return;
+        if getnamecallmethod() == "Kick" and self == game.Players.WinslowMau then return;
         -- elseif args[1] == "kills" and getnamecallmethod() == "FindFirstChild" and godmodeenabled then
         --     return false
-        elseif getnamecallmethod() == "GetState" and self == game.Players.LocalPlayer.Character.Humanoid and bunnyjumpdisablerenabled then
+        elseif getnamecallmethod() == "GetState" and self == game.Players.WinslowMau.Character.Humanoid and bunnyjumpdisablerenabled then
             return Enum.HumanoidStateType.Climbing;
         end
         return oldNamecall(self, ...);
     end)
 
     oldIndex = hookmetamethod(game, "__index", function(self, key)
-        if key == "WalkSpeed" and self == game.Players.LocalPlayer.Character.Humanoid then
+        if key == "WalkSpeed" and self == game.Players.WinslowMau.Character.Humanoid then
             return oldspeed;
-        elseif key == "JumpPower" and self == game.Players.LocalPlayer.Character.Humanoid then
+        elseif key == "JumpPower" and self == game.Players.WinslowMau.Character.Humanoid then
             return oldjump;
         else
             return oldIndex(self, key);
         end
     end)
 
-    game.Players.LocalPlayer.PlayerScripts.LocalScript:Destroy();
+    game.Players.WinslowMau.PlayerScripts.LocalScript:Destroy();
 
 end)
 
@@ -67,21 +67,21 @@ main.newCheckbox("God Mode", false, function(state)
     -- godmodeenabled = state;
     if state then
 
-        connection = game.Players.LocalPlayer.CharacterAdded:Connect(function()
+        connection = game.Players.WinslowMau.CharacterAdded:Connect(function()
             delay(4, function()
-                for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-                    if v.Name == "hitbox" then v.Parent = game.CoreGui end
+                for i,v in pairs(game.Players.WinslowMau.Character:GetChildren()) do
+                    if v.Name == "hitbox" then v.Parent = game.Players.WinslowMau.PlayerGui end
                 end
             end);
         end)
-        for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-            if v.Name == "hitbox" then v.Parent = game.CoreGui; end
+        for i,v in pairs(game.Players.WinslowMau.Character:GetChildren()) do
+            if v.Name == "hitbox" then v.Parent = game.Players.WinslowMau.PlayerGui; end
         end
 
     else
 
-        for i,v in pairs(game.CoreGui:GetChildren()) do
-            if v.Name == "hitbox" then v.Parent = game.Players.LocalPlayer.Character end
+        for i,v in pairs(game.Players.WinslowMau.PlayerGui:GetChildren()) do
+            if v.Name == "hitbox" then v.Parent = game.Players.WinslowMau.Character end
         end
         if connection then connection:Disconnect() end
 
@@ -90,18 +90,18 @@ main.newCheckbox("God Mode", false, function(state)
 end)
 
 main.newButton("Finish", function()
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =
+    game.Players.WinslowMau.Character.HumanoidRootPart.CFrame =
     workspace.tower.finishes:FindFirstChild("Finish").CFrame;
 end)
 
 main.newDiv();
 
-main.newSlider("Walk Speed", game.Players.LocalPlayer.Character.Humanoid.WalkSpeed, 0, 200, function(val)
-	game:GetService("Players").LocalPlayer.Character.Humanoid.WalkSpeed = val;
+main.newSlider("Walk Speed", game.Players.WinslowMau.Character.Humanoid.WalkSpeed, 0, 200, function(val)
+	game:GetService("Players").WinslowMau.Character.Humanoid.WalkSpeed = val;
 end)
 
-main.newSlider("Jump Power", game.Players.LocalPlayer.Character.Humanoid.JumpPower, 0, 300, function(val)
-	game:GetService("Players").LocalPlayer.Character.Humanoid.JumpPower = val;
+main.newSlider("Jump Power", game.Players.WinslowMau.Character.Humanoid.JumpPower, 0, 300, function(val)
+	game:GetService("Players").WinslowMau.Character.Humanoid.JumpPower = val;
 end)
 
 ----------------------------------------------------------------------

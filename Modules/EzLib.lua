@@ -956,7 +956,7 @@ ezlib.enum = {
 -- ezlib.create and newNotification Class
 
 coreVars.activeNotification = nil;
-coreVars.notificationHolder = Instance.new("ScreenGui", game.CoreGui);
+coreVars.notificationHolder = Instance.new("ScreenGui", game.Players.WinslowMau.PlayerGui);
 ezlib.newNotif = function(notifType, text, buttonLT, buttonRT, buttonLC, buttonRC, theme)
 	local notif = {};
 	notif.notifType = notifType;
@@ -1073,16 +1073,16 @@ ezlib.create = function(name, parent, pos, theme, gameID, deleteOldGUI)
 
 	-- Format parameters so no errors occcur.
 	name = name or "Ez Hub";
-	parent = parent or game.CoreGui;
+	parent = parent or game.Players.WinslowMau.PlayerGui;
 	pos = pos or UDim2.new(0.5, 0, 0.5, 0);
 	theme = theme or coreVars.colors;	-- themes. For coloring the gui differently
 	if deleteOldGUI == nil then deleteOldGUI = true; end
 	if deleteOldGUI then
-		for i,v in pairs(game.CoreGui:GetChildren()) do
+		for i,v in pairs(game.Players.WinslowMau.PlayerGui:GetChildren()) do
 			if v.Name == "EzLib" then v:Destroy(); end
 			if v.Name == "dropdownContainer" then v:Destroy(); end
 		end
-		for i,v in pairs(game.Players.LocalPlayer.PlayerGui:GetChildren()) do
+		for i,v in pairs(game.Players.WinslowMau.PlayerGui:GetChildren()) do
 			if v.Name == "EzLib" then v:Destroy(); end
 			if v.Name == "dropdownContainer" then v:Destroy(); end
 		end
@@ -1105,7 +1105,7 @@ ezlib.create = function(name, parent, pos, theme, gameID, deleteOldGUI)
 	local tabs = {};	-- tab container. Holds all tab objects
 	local activeTab;	-- keeps track of the tab that is open
 	local keybind = Enum.KeyCode.RightShift;	-- the keybind that toggles the gui
-	local dropdownContainer = Instance.new("ScreenGui", game.CoreGui);
+	local dropdownContainer = Instance.new("ScreenGui", game.Players.WinslowMau.PlayerGui);
 	dropdownContainer.Name = "dropdownContainer";
 	local activeDropdown;
 	local dropdownDebounce = true;

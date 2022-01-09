@@ -41,8 +41,8 @@ coroutine.resume(coroutine.create(function()
     while wait(autofarms.main.primary.threshhold) do
         pcall(function()
             if autofarms.main.primary.enabled and autofarms.main.tempd == false then
-                for i,v in pairs(workspace.orbFolder[game.Players.LocalPlayer.currentMap.Value]:GetChildren()) do
-                    game:GetService("ReplicatedStorage").rEvents.orbEvent:FireServer("collectOrb", v.Name, game.Players.LocalPlayer.currentMap.Value);
+                for i,v in pairs(workspace.orbFolder[game.Players.WinslowMau.currentMap.Value]:GetChildren()) do
+                    game:GetService("ReplicatedStorage").rEvents.orbEvent:FireServer("collectOrb", v.Name, game.Players.WinslowMau.currentMap.Value);
                     if autofarms.main.tempd or autofarms.main.primary.enabled == false then break; end
                 end
             end
@@ -57,7 +57,7 @@ coroutine.resume(coroutine.create(function()
                 for i,v in pairs(workspace.Hoops:GetChildren()) do
                     if v:IsA("MeshPart") and v.Name == "Hoop" then
                         wait(autofarms.hoop.primary.threshhold);
-                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame;
+                        game.Players.WinslowMau.Character.HumanoidRootPart.CFrame = v.CFrame;
                     end
                     if autofarms.hoop.tempd or autofarms.hoop.primary.enabled == false then break; end
                 end
@@ -77,7 +77,7 @@ raceevent.OnClientEvent:Connect(function(a, map, c)
                 raceevent:FireServer("joinRace");
             end)
         elseif a == "beginRace" and autofarms.race.primary and autofarms.race.tempd == false then
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.raceMaps[selectedmap].finishPart.CFrame;
+            game.Players.WinslowMau.Character.HumanoidRootPart.CFrame = workspace.raceMaps[selectedmap].finishPart.CFrame;
             wait(.5);
             autofarms.hoop.tempd = false;
         end
@@ -87,7 +87,7 @@ end)
 coroutine.resume(coroutine.create(function()
     while wait() do
         pcall(function()
-            if autofarms.rebirth.primary and autofarms.rebirth.tempd == false and game:GetService("Players").LocalPlayer.PlayerGui.gameGui.statsFrame.levelLabel.maxLabel.Visible then
+            if autofarms.rebirth.primary and autofarms.rebirth.tempd == false and game:GetService("Players").WinslowMau.PlayerGui.gameGui.statsFrame.levelLabel.maxLabel.Visible then
                 autofarms.main.tempd = true;
                 autofarms.hoop.tempd = true;
                 wait(.5);
@@ -160,13 +160,13 @@ end
 
 teleport.newDropdown("Crystal Teleports", "Select", crystalTeleports, function(state)
     if crystalTeleports[state] then
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = crystalTeleports[state];
+        game.Players.WinslowMau.Character.HumanoidRootPart.CFrame = crystalTeleports[state];
     end
 end)
 
 teleport.newDropdown("Chest Teleports", "Select", rewardChestTeleports, function(state)
     if rewardChestTeleports[state] then
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = rewardChestTeleports[state];
+        game.Players.WinslowMau.Character.HumanoidRootPart.CFrame = rewardChestTeleports[state];
     end
 end)
 
